@@ -96,6 +96,34 @@ module.exports = {
         nbBlocks: 2,
         defaultValue: 100000000
       }
+    ],
+    strax: [
+      {
+        name: 'urgent',
+        nbBlocks: 1,
+        multiplier: 1.5,
+        defaultValue: 75000
+      },
+      {
+        name: 'priority',
+        nbBlocks: 1,
+        defaultValue: 50000
+      },
+      {
+        name: 'normal',
+        nbBlocks: 1,
+        defaultValue: 30000
+      },
+      {
+        name: 'economy',
+        nbBlocks: 2,
+        defaultValue: 25000
+      },
+      {
+        name: 'superEconomy',
+        nbBlocks: 1,
+        defaultValue: 10000
+      }
     ]
   },
 
@@ -140,7 +168,7 @@ module.exports = {
   // Cache time for blockchain height (in ms)
   // this is actually erased on 'new block' notifications
   // so, 30m seems fine
-  BLOCKHEIGHT_CACHE_TIME: 30 * 60 * 1000,
+  BLOCKHEIGHT_CACHE_TIME: 1000,
 
   // Cache time fee levels (in ms)
   FEE_LEVEL_CACHE_DURATION: 6 * 60 * 1000,
@@ -177,7 +205,7 @@ module.exports = {
     // },
   },
 
-  COIN: 'btc',
+  COIN: 'strax',
   INSIGHT_REQUEST_POOL_SIZE: 10,
   INSIGHT_TIMEOUT: 30000,
 
@@ -211,7 +239,8 @@ module.exports = {
     bch: 10000 * 1000, // 10k sat/b
     eth: 1000000000000, // 50 Gwei,
     xrp: 1000000000000,
-    doge: 100000000 * 10
+    doge: 100000000 * 10,
+    strax: 10000 * 1000
   },
 
   MIN_TX_FEE: {
@@ -219,7 +248,8 @@ module.exports = {
     bch: 0,
     eth: 0,
     xrp: 0,
-    doge: 0
+    doge: 0,
+    strax: 0
   },
 
   MAX_TX_FEE: {
@@ -227,7 +257,8 @@ module.exports = {
     bch: 0.05 * 1e8,
     eth: 1 * 1e18, // 1 eth
     xrp: 1 * 1e6, // 1 xrp
-    doge: 10 * 1e8
+    doge: 10 * 1e8,
+    strax: 0.5 * 1e8
   },
 
   // ETH

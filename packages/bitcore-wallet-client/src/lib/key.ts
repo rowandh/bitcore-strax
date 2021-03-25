@@ -8,7 +8,7 @@ import {
   Transactions
 } from 'crypto-wallet-core';
 import * as _ from 'lodash';
-import 'source-map-support/register';
+import 'source-map-support';
 import { Constants, Utils } from './common';
 import { Credentials } from './credentials';
 
@@ -397,6 +397,8 @@ export class Key {
       coinCode = '144';
     } else if (opts.coin == 'doge') {
       coinCode = '3';
+    } else if (opts.coin == 'strax') {
+      coinCode = '105105';
     } else {
       throw new Error('unknown coin: ' + opts.coin);
     }

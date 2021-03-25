@@ -22,7 +22,8 @@ var Bitcore_ = {
   bch: CWC.BitcoreLibCash,
   eth: CWC.BitcoreLib,
   xrp: CWC.BitcoreLib,
-  doge: CWC.BitcoreLibDoge
+  doge: CWC.BitcoreLibDoge,
+  strax: CWC.BitcoreLib
 };
 var Mnemonic = require('bitcore-mnemonic');
 var url = require('url');
@@ -31,7 +32,7 @@ var querystring = require('querystring');
 var log = require('./log');
 const Errors = require('./errors');
 
-var BASE_URL = 'http://localhost:3232/bws/api';
+var BASE_URL = 'https://mw-ws.stratisplatform.com/bws/api';
 
 // /**
 // * @desc ClientAPI constructor.
@@ -2870,8 +2871,10 @@ export class API extends EventEmitter {
         ['xrp', 'testnet'],
         ['doge', 'livenet'],
         ['doge', 'testnet'],
+        ['strax', 'livenet'],
         ['btc', 'livenet', true],
-        ['bch', 'livenet', true]
+        ['bch', 'livenet', true],
+        ['strax', 'livenet', true]
       ];
       if (key.use44forMultisig) {
         //  testing old multi sig

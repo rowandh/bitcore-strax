@@ -5,6 +5,7 @@ After=network.target
 [Service]
 User=bitcore
 Group=bitcore
+Environment="BITCORE_CONFIG_PATH=/home/bitcore/config/bitcore.config.json"
 ExecStart=/usr/bin/node /home/bitcore/bitcore/packages/bitcore-node/server.js
 
 [Install]

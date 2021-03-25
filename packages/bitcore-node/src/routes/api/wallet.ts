@@ -66,7 +66,7 @@ router.get('/:pubKey/addresses', Auth.authenticateMiddleware, async (req: Authen
       req,
       res
     };
-    return await ChainStateProvider.streamWalletAddresses(payload);
+    return await ChainStateProvider.streamWalletAddresses(payload as any);
   } catch (err) {
     return res.status(500).send(err);
   }
@@ -167,7 +167,7 @@ router.get('/:pubKey/balance/:time', Auth.authenticateMiddleware, async (req: Au
 
 router.get('/:pubKey/utxos', Auth.authenticateMiddleware, async (req: AuthenticatedRequest, res) => {
   let { chain, network } = req.params;
-  let { limit } = req.query;
+  let { limit } = req.query as any;
   try {
     return ChainStateProvider.streamWalletUtxos({
       chain,

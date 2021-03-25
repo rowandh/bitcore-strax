@@ -42,7 +42,8 @@ const Bitcore_ = {
   bch: require('bitcore-lib-cash'),
   eth: Bitcore,
   xrp: Bitcore,
-  doge: require('bitcore-lib-doge')
+  doge: require('bitcore-lib-doge'),
+  strax: Bitcore
 };
 
 const Common = require('./common');
@@ -1762,12 +1763,12 @@ export class WalletService {
   _sampleFeeLevels(coin, network, points, cb) {
     const bc = this._getBlockchainExplorer(coin, network);
     if (!bc) return cb(new Error('Could not get blockchain explorer instance'));
-    bc.estimateFee(points, (err, result) => {
-      if (err) {
-        this.logw('Error estimating fee', err);
-        return cb(err);
-      }
-
+    // bc.estimateFee(points, (err, result) => {
+    //   if (err) {
+    //     this.logw('Error estimating fee', err);
+    //     return cb(err);
+    //   }
+      const result = Defaults.FEE_LEVELS[coin];
       const failed = [];
       const levels = _.fromPairs(
         _.map(points, p => {
@@ -1787,7 +1788,7 @@ export class WalletService {
       }
 
       return cb(null, levels, failed.length);
-    });
+    // });
   }
 
   /**
@@ -1807,6 +1808,8 @@ export class WalletService {
     if (!Utils.checkValueInCollection(opts.network, Constants.NETWORKS)) return cb(new ClientError('Invalid network'));
 
     const cacheKey = 'feeLevel:' + opts.coin + ':' + opts.network;
+
+    const feeLevels = Defaults.FEE_LEVELS[opts.coin];
 
     this.storage.checkAndUseGlobalCache(cacheKey, Defaults.FEE_LEVEL_CACHE_DURATION, (err, values, oldvalues) => {
       if (err) return cb(err);

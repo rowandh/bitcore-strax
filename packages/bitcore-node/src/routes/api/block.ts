@@ -6,10 +6,10 @@ import { CacheTimes, Confirmations, SetCache } from '../middleware';
 
 const router = require('express').Router({ mergeParams: true });
 
-router.get('/', async function(req: Request, res: Response) {
+router.get('/', async function(req: any, res: Response) {
   let { chain, network } = req.params;
   let { sinceBlock, date, limit, since, direction, paging } = req.query;
-  if (limit) {
+  if (limit) {    
     limit = parseInt(limit);
   }
   try {

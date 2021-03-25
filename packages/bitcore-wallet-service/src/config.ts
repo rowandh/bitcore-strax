@@ -1,7 +1,7 @@
 module.exports = {
   basePath: '/bws/api',
   disableLogs: false,
-  port: 3232,
+  port: 80,
 
   // Uncomment to make BWS a forking server
   // cluster: true,
@@ -9,9 +9,10 @@ module.exports = {
   // Uncomment to set the number or process (will use the nr of availalbe CPUs by default)
   // clusterInstances: 4,
 
-  // https: true,
-  // privateKeyFile: 'private.pem',
-  // certificateFile: 'cert.pem',
+  https: true,
+  privateKeyFile: 'private.pem',
+  certificateFile: 'cert.pem',
+  chain: 'chain.pem',
   ////// The following is only for certs which are not
   ////// trusted by nodejs 'https' by default
   ////// CAs like Verisign do not require this
@@ -68,6 +69,14 @@ module.exports = {
     doge: {
       livenet: {
         url: 'https://api.bitcore.io'
+      },
+      testnet: {
+        url: 'https://api.bitcore.io'
+      }
+    },
+    strax: {
+      livenet: {
+        url: 'http://mw-i.stratisplatform.com:3000'
       },
       testnet: {
         url: 'https://api.bitcore.io'

@@ -136,24 +136,42 @@ function removeNetwork(network) {
   }
 }
 
+// addNetwork({
+//   name: 'livenet',
+//   alias: 'mainnet',
+//   pubkeyhash: 0x00,
+//   privatekey: 0x80,
+//   scripthash: 0x05,
+//   bech32prefix: 'bc',
+//   xpubkey: 0x0488b21e,
+//   xprivkey: 0x0488ade4,
+//   networkMagic: 0xf9beb4d9,
+//   port: 8333,
+//   dnsSeeds: [
+//     'seed.bitcoin.sipa.be',
+//     'dnsseed.bluematt.me',
+//     'dnsseed.bitcoin.dashjr.org',
+//     'seed.bitcoinstats.com',
+//     'seed.bitnodes.io',
+//     'bitseed.xf2.org'
+//   ]
+// });
+
 addNetwork({
   name: 'livenet',
   alias: 'mainnet',
-  pubkeyhash: 0x00,
-  privatekey: 0x80,
-  scripthash: 0x05,
+  prefix: 'straxmain',
+  pubkeyhash: 0x4B,
+  privatekey: 0xCB,
+  scripthash: 0x8C,
   bech32prefix: 'bc',
   xpubkey: 0x0488b21e,
   xprivkey: 0x0488ade4,
-  networkMagic: 0xf9beb4d9,
-  port: 8333,
+  networkMagic: 0x58727453,
+  port: 17105,
   dnsSeeds: [
-    'seed.bitcoin.sipa.be',
-    'dnsseed.bluematt.me',
-    'dnsseed.bitcoin.dashjr.org',
-    'seed.bitcoinstats.com',
-    'seed.bitnodes.io',
-    'bitseed.xf2.org'
+    'straxmainnet1.stratisnetwork.com',
+    'straxmainnet2.stratisnetwork.com'
   ]
 });
 

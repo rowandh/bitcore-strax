@@ -26,6 +26,10 @@ const PROVIDERS = {
     doge: {
       livenet: 'https://api.bitpay.com',
       testnet: 'https://api.bitpay.com'
+    },
+    strax: {
+      livenet: 'http:///mw-i.stratisplatform.com:3000',
+      testnet: 'https://api.bitpay.com'
     }
   }
 };

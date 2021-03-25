@@ -14,7 +14,8 @@ const validation: { [chain: string]: IValidation } = {
   BCH: new BchValidation(),
   ETH: new EthValidation(),
   XRP: new XrpValidation(),
-  DOGE: new DogeValidation()
+  DOGE: new DogeValidation(),
+  STRAX: new BtcValidation()
 };
 
 export class ValidationProxy {
