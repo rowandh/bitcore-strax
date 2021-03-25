@@ -1768,26 +1768,26 @@ export class WalletService {
     //     this.logw('Error estimating fee', err);
     //     return cb(err);
     //   }
-      const result = Defaults.FEE_LEVELS[coin];
-      const failed = [];
-      const levels = _.fromPairs(
-        _.map(points, p => {
-          const feePerKb = _.isObject(result) && result[p] && _.isNumber(result[p]) ? +result[p] : -1;
-          if (feePerKb < 0) failed.push(p);
+    const result = Defaults.FEE_LEVELS[coin];
+    const failed = [];
+    const levels = _.fromPairs(
+      _.map(points, p => {
+        const feePerKb = _.isObject(result) && result[p] && _.isNumber(result[p]) ? +result[p] : -1;
+        if (feePerKb < 0) failed.push(p);
 
-          // NOTE: ONLY BTC/BCH/DOGE expect feePerKb to be Bitcoin amounts
-          // others... expect wei.
+        // NOTE: ONLY BTC/BCH/DOGE expect feePerKb to be Bitcoin amounts
+        // others... expect wei.
 
-          return ChainService.convertFeePerKb(coin, p, feePerKb);
-        })
-      );
+        return ChainService.convertFeePerKb(coin, p, feePerKb);
+      })
+    );
 
-      if (failed.length) {
-        const logger = network == 'livenet' ? this.logw : this.logi;
-        logger('Could not compute fee estimation in ' + network + ': ' + failed.join(', ') + ' blocks.');
-      }
+    if (failed.length) {
+      const logger = network == 'livenet' ? this.logw : this.logi;
+      logger('Could not compute fee estimation in ' + network + ': ' + failed.join(', ') + ' blocks.');
+    }
 
-      return cb(null, levels, failed.length);
+    return cb(null, levels, failed.length);
     // });
   }
 

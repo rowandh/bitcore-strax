@@ -26,10 +26,8 @@ if (config.https) {
     serverOpts.honorCipherOrder = true;
   }
 
-  if(config.chain) {
-    serverOpts.ca = [
-      fs.readFileSync(config.chain)
-    ];
+  if (config.chain) {
+    serverOpts.ca = [fs.readFileSync(config.chain)];
   }
 
   // This sets the intermediate CA certs only if they have all been designated in the config.js
