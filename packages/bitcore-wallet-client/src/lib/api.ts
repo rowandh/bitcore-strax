@@ -32,7 +32,7 @@ var querystring = require('querystring');
 var log = require('./log');
 const Errors = require('./errors');
 
-var BASE_URL = 'https://mw-ws.stratisplatform.com/bws/api';
+var BASE_URL = 'https://mw-ws.stratisplatform.com/bws/api:3032';
 
 // /**
 // * @desc ClientAPI constructor.
