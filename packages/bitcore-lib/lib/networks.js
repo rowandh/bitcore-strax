@@ -167,7 +167,7 @@ addNetwork({
   bech32prefix: 'bc',
   xpubkey: 0x0488b21e,
   xprivkey: 0x0488ade4,
-  networkMagic: 0x58727453,
+  networkMagic: 0x53747258, //0x58727453,
   port: 17105,
   dnsSeeds: [
     'straxmainnet1.stratisnetwork.com',
