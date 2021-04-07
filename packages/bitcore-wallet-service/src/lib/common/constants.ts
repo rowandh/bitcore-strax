@@ -13,7 +13,8 @@ module.exports = {
     GUSD: 'gusd',
     BUSD: 'busd',
     DAI: 'dai',
-    WBTC: 'wbtc'
+    WBTC: 'wbtc',
+    STRAX: 'strax'
   },
 
   ERC20: {
@@ -28,7 +29,8 @@ module.exports = {
   UTXO_COINS: {
     BTC: 'btc',
     BCH: 'bch',
-    DOGE: 'doge'
+    DOGE: 'doge',
+    STRAX: 'strax'
   },
 
   NETWORKS: {
