@@ -69,7 +69,8 @@ export class SearchProvider {
       chainNetworks: [
         { chain: 'BTC', network: 'testnet' },
         { chain: 'BCH', network: 'testnet' },
-        { chain: 'DOGE', network: 'testnet' }
+        { chain: 'DOGE', network: 'testnet' },
+        { chain: 'STRAX', network: 'testnet' }
       ],
     },
     // Testnet BCH Address
@@ -133,7 +134,8 @@ export class SearchProvider {
         { chain: 'BTC', network: 'testnet' },
         { chain: 'BCH', network: 'testnet' },
         { chain: 'DOGE', network: 'testnet' },
-        { chain: 'ETH', network: 'testnet' }
+        { chain: 'ETH', network: 'testnet' },
+        { chain: 'STRAX', network: 'testnet' }
       ],
     },
   ]

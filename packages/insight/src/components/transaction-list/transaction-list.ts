@@ -43,7 +43,8 @@ export class TransactionListComponent implements OnInit {
         if (
           this.chainNetwork.chain === 'BTC' ||
           this.chainNetwork.chain === 'BCH' ||
-          this.chainNetwork.chain === 'DOGE'
+          this.chainNetwork.chain === 'DOGE' ||
+          this.chainNetwork.chain === 'STRAX'
         ) {
           this.fetchBlockTxCoinInfo(1);
         } else {
@@ -62,7 +63,8 @@ export class TransactionListComponent implements OnInit {
         if (
           this.chainNetwork.chain === 'BTC' ||
           this.chainNetwork.chain === 'BCH' ||
-          this.chainNetwork.chain === 'DOGE'
+          this.chainNetwork.chain === 'DOGE'||
+          this.chainNetwork.chain === 'STRAX'
         ) {
           this.addrProvider
             .getAddressActivityCoins(this.queryValue, this.chainNetwork)
@@ -156,7 +158,8 @@ export class TransactionListComponent implements OnInit {
     if (
       (this.queryType === 'blockHash' && this.chainNetwork.chain === 'BTC') ||
       this.chainNetwork.chain === 'BCH' ||
-      this.chainNetwork.chain === 'DOGE'
+      this.chainNetwork.chain === 'DOGE' ||
+      this.chainNetwork.chain === 'STRAX'
     ) {
       this.fetchBlockTxCoinInfo(this.blockPageNum);
       this.limit += this.chunkSize;
