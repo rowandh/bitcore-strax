@@ -19,7 +19,7 @@ function builder(options) {
   options.BlockHeader = options.BlockHeader || bitcore.BlockHeader;
   options.Transaction = options.Transaction || bitcore.Transaction;
   options.MerkleBlock = options.MerkleBlock || bitcore.MerkleBlock;
-  options.protocolVersion = options.protocolVersion || 70001;
+  options.protocolVersion = options.protocolVersion || 70012;
 
   var exported = {
     constructors: {
@@ -58,7 +58,8 @@ function builder(options) {
       getblocks: 'GetBlocks',
       getheaders: 'GetHeaders',
       mempool: 'MemPool',
-      getaddr: 'GetAddr'
+      getaddr: 'GetAddr',
+      sendheaders: 'SendHeaders'
     },
     commands: {}
   };

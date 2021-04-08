@@ -65,6 +65,7 @@ function Peer(options) {
 
   this.messages = options.messages || new Messages({
     network: this.network,
+    protocolVersion: 70012,
     Block: bitcore.Block,
     Transaction: bitcore.Transaction
   });
