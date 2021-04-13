@@ -43,7 +43,7 @@
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "bitcore-lib": "file:../bitcore-lib",
+    "bitcore-lib": "^8.25.7",
     "unorm": "^1.4.1"
   },
   "peerDependencies": {
