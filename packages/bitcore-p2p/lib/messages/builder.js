@@ -59,7 +59,8 @@ function builder(options) {
       getheaders: 'GetHeaders',
       mempool: 'MemPool',
       getaddr: 'GetAddr',
-      sendheaders: 'SendHeaders'
+      sendheaders: 'SendHeaders',
+      getprovhdr: 'GetProvHdr'
     },
     commands: {}
   };

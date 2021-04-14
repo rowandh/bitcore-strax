@@ -598,7 +598,7 @@ export class InternalStateProvider implements IChainStateService {
       .addCursorFlag('noCursorTimeout', true)
       .toArray();
     if (locatorBlocks.length < 2) {
-      return [Array(65).join('0')];
+      return ['ebe158d09325c470276619ebc5f7f87c98c0ed4b211c46a17a6457655811d082']; // Add STRAX genesis hash here
     }
     return locatorBlocks.map(block => block.hash);
   }
