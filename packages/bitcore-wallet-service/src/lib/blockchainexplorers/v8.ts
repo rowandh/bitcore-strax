@@ -485,7 +485,8 @@ export class V8 {
           ret = JSON.parse(ret);
           return cb(null, ret.height, ret.hash);
         } catch (err) {
-          return cb(new Error('Could not get height from block explorer'));
+          // return cb(new Error('Could not get height from block explorer'));
+          return cb(new Error('Could not get tip from block explorer. ' + JSON.stringify(err)));
         }
       })
       .catch(cb);
@@ -501,7 +502,8 @@ export class V8 {
           const res = _.map(ret, 'txid');
           return cb(null, res);
         } catch (err) {
-          return cb(new Error('Could not get height from block explorer'));
+          // return cb(new Error('Could not get height from block explorer'));
+          return cb(new Error('Could not get height from block explorer. ' + JSON.stringify(err)));
         }
       })
       .catch(cb);
