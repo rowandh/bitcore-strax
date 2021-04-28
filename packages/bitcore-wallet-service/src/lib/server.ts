@@ -3178,6 +3178,7 @@ export class WalletService {
       if (!bc) return cb(new Error('Could not get blockchain explorer instance'));
       
       this.logi(`===> bc.getBlockchainHeight`);
+      this.logi(`===> ${JSON.stringify(bc)}`);
       bc.getBlockchainHeight((err, height, hash) => {
         this.logi(`===> bc.getBlockchainHeight callback ${height} ${hash}`);
         if (!err && height > 0) {
@@ -3187,9 +3188,9 @@ export class WalletService {
           return cb(err || 'wrong height');
         }
 
-        this.logi(`===> this.storage.storeGlobalCache ${cacheKey}`, values);
+        this.logi(`===> this.storage.storeGlobalCache ${cacheKey}`);
         this.storage.storeGlobalCache(cacheKey, values, err => {
-          this.logi(`===> this.storage.storeGlobalCache callback`, values);
+          this.logi(`===> this.storage.storeGlobalCache callback`);
           if (err) {
             this.logw('Could not store bc heigth cache');
           }
