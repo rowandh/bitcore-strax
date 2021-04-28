@@ -1809,6 +1809,8 @@ export class WalletService {
     opts = opts || {};
 
     opts.coin = opts.coin || Defaults.COIN;
+    logger.info(`==> getFeeLevels for ${opts.coin}`);
+    logger.info(Constants.COINS);
     if (!Utils.checkValueInCollection(opts.coin, Constants.COINS)) return cb(new ClientError('Invalid coin'));
 
     opts.network = opts.network || 'livenet';
