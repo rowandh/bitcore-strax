@@ -1817,7 +1817,7 @@ export class WalletService {
     logger.info(Constants.COINS);
     if (!Utils.checkValueInCollection(opts.coin, Constants.COINS)) return cb(new ClientError('Invalid coin'));
 
-    opts.network = opts.network || 'livenet';
+    opts.network = 'livenet';
     if (!Utils.checkValueInCollection(opts.network, Constants.NETWORKS)) return cb(new ClientError('Invalid network'));
 
     const cacheKey = 'feeLevel:' + opts.coin + ':' + opts.network;
@@ -1915,12 +1915,17 @@ export class WalletService {
           return cb(null, values);
         }
 
-        this.storage.storeGlobalCache(cacheKey, values, err => {
-          if (err) {
-            this.logw('Could not store fee level cache');
-          }
+        try {
+          this.storage.storeGlobalCache(cacheKey, values, err => {
+            if (err) {
+              this.logw('Could not store fee level cache');
+            }
+            return cb(null, values);
+          });
+        } catch (err) {
+           this.logw(err);
           return cb(null, values);
-        });
+        }
       });
     });
   }
