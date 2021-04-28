@@ -478,11 +478,14 @@ export class V8 {
   getBlockchainHeight(cb) {
     const url = this.baseUrl + '/block/tip';
 
+    logger.info('===> running getBlockchainHeight');
+
     this.request
       .get(url, {})
       .then(ret => {
         try {
           ret = JSON.parse(ret);
+          logger.info(`===> returning ${ret.height}`);
           return cb(null, ret.height, ret.hash);
         } catch (err) {
           // return cb(new Error('Could not get height from block explorer'));
