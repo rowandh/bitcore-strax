@@ -3196,6 +3196,7 @@ export class WalletService {
         //   }
         //   return cb(null, values.current, values.hash);
         // });
+        return cb(null, values.current, values.hash);
       });
     });
   }
