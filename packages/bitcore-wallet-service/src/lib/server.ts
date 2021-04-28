@@ -3189,13 +3189,13 @@ export class WalletService {
         }
 
         this.logi(`===> this.storage.storeGlobalCache ${cacheKey}`);
-        this.storage.storeGlobalCache(cacheKey, values, err => {
-          this.logi(`===> this.storage.storeGlobalCache callback`);
-          if (err) {
-            this.logw('Could not store bc heigth cache');
-          }
-          return cb(null, values.current, values.hash);
-        });
+        // this.storage.storeGlobalCache(cacheKey, values, err => {
+        //   this.logi(`===> this.storage.storeGlobalCache callback`);
+        //   if (err) {
+        //     this.logw('Could not store bc heigth cache');
+        //   }
+        //   return cb(null, values.current, values.hash);
+        // });
       });
     });
   }
