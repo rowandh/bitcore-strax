@@ -1808,6 +1808,10 @@ export class WalletService {
   getFeeLevels(opts, cb) {
     opts = opts || {};
 
+    if (opts.coin === 's') {
+      opts.coin = 'strax';
+    }
+
     opts.coin = opts.coin || Defaults.COIN;
     logger.info(`==> getFeeLevels for ${opts.coin}`);
     logger.info(Constants.COINS);
