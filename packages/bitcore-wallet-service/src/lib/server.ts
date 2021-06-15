@@ -1464,6 +1464,7 @@ export class WalletService {
   }
 
   getUtxosForCurrentWallet(opts, cb) {
+    this.logi('===> getUtxosForCurrentWallet');
     opts = opts || {};
 
     const utxoKey = utxo => {
@@ -1512,11 +1513,14 @@ export class WalletService {
         next => {
           if (!wallet.isComplete()) return next();
 
+          this.logi('===> _getBlockchainHeight');
           this._getBlockchainHeight(wallet.coin, wallet.network, (err, height, hash) => {
             if (err) return next(err);
 
             const dustThreshold = Bitcore_[wallet.coin].Transaction.DUST_AMOUNT;
+            this.logi(`===> getUtxosForCurrentWallet: ${dustThreshold}  ${height} ${hash}`);
             bc.getUtxos(wallet, height, (err, utxos) => {
+              this.logi('===> getUtxos callback');
               if (err) return next(err);
               if (utxos.length == 0) return cb(null, []);
 
@@ -1603,6 +1607,7 @@ export class WalletService {
    * @returns {Array} utxos - List of UTXOs.
    */
   getUtxos(opts, cb) {
+    this.logi('===> getUtxos');
     opts = opts || {};
 
     if (opts.coin) {
@@ -1633,8 +1638,10 @@ export class WalletService {
         }
 
         this._getBlockchainHeight(wallet.coin, wallet.network, (err, height, hash) => {
+          this.logi(`===> _getBlockchainHeight callback ${height} ${hash}`);
           if (err) return cb(err);
           bc.getAddressUtxos(address, height, (err, utxos) => {
+            this.logi(`===> getAddressUtxos callback ${address} ${height}`);
             if (err) return cb(err);
             return cb(null, utxos);
           });
@@ -1801,10 +1808,16 @@ export class WalletService {
   getFeeLevels(opts, cb) {
     opts = opts || {};
 
+    if (opts.coin === 's') {
+      opts.coin = 'strax';
+    }
+
     opts.coin = opts.coin || Defaults.COIN;
+    logger.info(`==> getFeeLevels for ${opts.coin}`);
+    logger.info(Constants.COINS);
     if (!Utils.checkValueInCollection(opts.coin, Constants.COINS)) return cb(new ClientError('Invalid coin'));
 
-    opts.network = opts.network || 'livenet';
+    opts.network = 'livenet';
     if (!Utils.checkValueInCollection(opts.network, Constants.NETWORKS)) return cb(new ClientError('Invalid network'));
 
     const cacheKey = 'feeLevel:' + opts.coin + ':' + opts.network;
@@ -1902,12 +1915,17 @@ export class WalletService {
           return cb(null, values);
         }
 
-        this.storage.storeGlobalCache(cacheKey, values, err => {
-          if (err) {
-            this.logw('Could not store fee level cache');
-          }
+        try {
+          this.storage.storeGlobalCache(cacheKey, values, err => {
+            if (err) {
+              this.logw('Could not store fee level cache');
+            }
+            return cb(null, values);
+          });
+        } catch (err) {
+           this.logw(err);
           return cb(null, values);
-        });
+        }
       });
     });
   }
@@ -3157,16 +3175,23 @@ export class WalletService {
   _getBlockchainHeight(coin, network, cb) {
     const cacheKey = Storage.BCHEIGHT_KEY + ':' + coin + ':' + network;
 
+    this.logi(`===> _getBlockchainHeight cacheKey ${cacheKey}`);
+
     this.storage.checkAndUseGlobalCache(cacheKey, Defaults.BLOCKHEIGHT_CACHE_TIME, (err, values) => {
       if (err) return cb(err);
 
+      this.logi(`===> _getBlockchainHeight`, values);
       if (values) return cb(null, values.current, values.hash, true);
 
       values = {};
 
       const bc = this._getBlockchainExplorer(coin, network);
       if (!bc) return cb(new Error('Could not get blockchain explorer instance'));
+      
+      this.logi(`===> bc.getBlockchainHeight`);
+      this.logi(`===> ${JSON.stringify(bc)}`);
       bc.getBlockchainHeight((err, height, hash) => {
+        this.logi(`===> bc.getBlockchainHeight callback ${height} ${hash}`);
         if (!err && height > 0) {
           values.current = height;
           values.hash = hash;
@@ -3174,12 +3199,19 @@ export class WalletService {
           return cb(err || 'wrong height');
         }
 
-        this.storage.storeGlobalCache(cacheKey, values, err => {
-          if (err) {
-            this.logw('Could not store bc heigth cache');
-          }
+        this.logi(`===> this.storage.storeGlobalCache ${cacheKey}`);
+        try {
+          this.storage.storeGlobalCache(cacheKey, values, err => {
+            this.logi(`===> this.storage.storeGlobalCache callback`);
+            if (err) {
+              this.logw('Could not store bc heigth cache');
+            }
+            return cb(null, values.current, values.hash);
+          });
+        } catch(err) {
+          this.logw(err);
           return cb(null, values.current, values.hash);
-        });
+        }
       });
     });
   }
@@ -3706,11 +3738,14 @@ export class WalletService {
           this.syncWallet(wallet, next, true);
         },
         next => {
+          logger.info(`===> _getBlockchainHeight ${wallet.coin}/${wallet.network}`);
           this._getBlockchainHeight(wallet.coin, wallet.network, (err, height, hash) => {
+            logger.info(`===> _getBlockchainHeight callback ${height}/${hash}`);
             if (err) return next(err);
             bcHeight = height;
             bcHash = hash;
             streamKey = (this.userAgent || '') + '-' + limit + '-' + bcHash;
+            logger.info(`===> streamKey ${streamKey}`);
             return next();
           });
         },
