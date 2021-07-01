@@ -41,7 +41,7 @@ export class BitcoinP2PWorker extends BaseP2PWorker<IBtcBlock> {
     };
     this.messages = new this.bitcoreP2p.Messages({
       network: this.bitcoreLib.Networks.get(this.network),
-      protocolVersion: 70012,
+      protocolVersion: 70012
     });
     this.pool = new this.bitcoreP2p.Pool({
       addrs: this.chainConfig.trustedPeers.map(peer => {
@@ -95,9 +95,9 @@ export class BitcoinP2PWorker extends BaseP2PWorker<IBtcBlock> {
 
     this.pool.on('peerdisconnect', peer => {
       logger.warn(
-        `${timestamp()} | peerdisconnect: Not connected to peer: ${peer.host}:${peer.port.toString().padEnd(5)} | Chain: ${
-          this.chain
-        } | Network: ${this.network}`
+        `${timestamp()} | peerdisconnect: Not connected to peer: ${peer.host}:${peer.port
+          .toString()
+          .padEnd(5)} | Chain: ${this.chain} | Network: ${this.network}`
       );
     });
 
