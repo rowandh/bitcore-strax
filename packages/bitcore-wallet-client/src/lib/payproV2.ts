@@ -13,7 +13,8 @@ const BN = Bitcore.crypto.BN;
 var Bitcore_ = {
   btc: Bitcore,
   bch: require('crypto-wallet-core').BitcoreLibCash,
-  strax: Bitcore
+  strax: Bitcore,
+  crs: Bitcore
 };
 var MAX_FEE_PER_KB = {
   btc: 10000 * 1000, // 10k sat/b

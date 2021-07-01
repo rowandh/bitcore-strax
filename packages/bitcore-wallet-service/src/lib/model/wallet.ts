@@ -18,7 +18,8 @@ const Bitcore = {
   eth: require('bitcore-lib'),
   xrp: require('bitcore-lib'),
   doge: require('bitcore-lib-doge'),
-  strax: require('bitcore-lib')
+  strax: require('bitcore-lib'),
+  crs: require('bitcore-lib')
 };
 
 export interface IWallet {

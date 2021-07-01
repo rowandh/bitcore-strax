@@ -23,7 +23,8 @@ const Bitcore_ = {
   eth: Bitcore,
   xrp: Bitcore,
   doge: BitcoreLibDoge,
-  strax: Bitcore
+  strax: Bitcore,
+  crs: Bitcore
 };
 const PrivateKey = Bitcore.PrivateKey;
 const PublicKey = Bitcore.PublicKey;
@@ -240,7 +241,7 @@ export class Utils {
     // now it is effective for all coins.
 
     const chain = this.getChain(coin).toLowerCase();
-    var str = chain == 'strax' ? xpub : chain + xpub;
+    var str = chain == 'strax' || chain == 'crs' ? xpub : chain + xpub;
 
     var hash = sjcl.hash.sha256.hash(str);
     return sjcl.codec.hex.fromBits(hash);

@@ -43,7 +43,8 @@ const Bitcore_ = {
   eth: Bitcore,
   xrp: Bitcore,
   doge: require('bitcore-lib-doge'),
-  strax: Bitcore
+  strax: Bitcore,
+  crs: Bitcore
 };
 
 const Common = require('./common');
@@ -1923,7 +1924,7 @@ export class WalletService {
             return cb(null, values);
           });
         } catch (err) {
-           this.logw(err);
+          this.logw(err);
           return cb(null, values);
         }
       });
@@ -3180,15 +3181,15 @@ export class WalletService {
     this.storage.checkAndUseGlobalCache(cacheKey, Defaults.BLOCKHEIGHT_CACHE_TIME, (err, values) => {
       if (err) return cb(err);
 
-      this.logi(`===> _getBlockchainHeight`, values);
+      this.logi('===> _getBlockchainHeight', values);
       if (values) return cb(null, values.current, values.hash, true);
 
       values = {};
 
       const bc = this._getBlockchainExplorer(coin, network);
       if (!bc) return cb(new Error('Could not get blockchain explorer instance'));
-      
-      this.logi(`===> bc.getBlockchainHeight`);
+
+      this.logi('===> bc.getBlockchainHeight');
       this.logi(`===> ${JSON.stringify(bc)}`);
       bc.getBlockchainHeight((err, height, hash) => {
         this.logi(`===> bc.getBlockchainHeight callback ${height} ${hash}`);
@@ -3202,13 +3203,13 @@ export class WalletService {
         this.logi(`===> this.storage.storeGlobalCache ${cacheKey}`);
         try {
           this.storage.storeGlobalCache(cacheKey, values, err => {
-            this.logi(`===> this.storage.storeGlobalCache callback`);
+            this.logi('===> this.storage.storeGlobalCache callback');
             if (err) {
               this.logw('Could not store bc heigth cache');
             }
             return cb(null, values.current, values.hash);
           });
-        } catch(err) {
+        } catch (err) {
           this.logw(err);
           return cb(null, values.current, values.hash);
         }

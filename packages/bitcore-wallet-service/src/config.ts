@@ -82,6 +82,14 @@ module.exports = {
         url: 'https://api.bitcore.io'
       }
     },
+    crs: {
+      livenet: {
+        url: 'http://mw-i.stratisplatform.com:3000'
+      },
+      testnet: {
+        url: 'https://api.bitcore.io'
+      }
+    },
     socketApiKey: 'socketApiKey'
   },
   pushNotificationsOpts: {

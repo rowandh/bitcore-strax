@@ -124,6 +124,34 @@ module.exports = {
         nbBlocks: 1,
         defaultValue: 10000
       }
+    ],
+    crs: [
+      {
+        name: 'urgent',
+        nbBlocks: 1,
+        multiplier: 1.5,
+        defaultValue: 75000
+      },
+      {
+        name: 'priority',
+        nbBlocks: 1,
+        defaultValue: 50000
+      },
+      {
+        name: 'normal',
+        nbBlocks: 1,
+        defaultValue: 30000
+      },
+      {
+        name: 'economy',
+        nbBlocks: 2,
+        defaultValue: 25000
+      },
+      {
+        name: 'superEconomy',
+        nbBlocks: 1,
+        defaultValue: 10000
+      }
     ]
   },
 
@@ -205,7 +233,7 @@ module.exports = {
     // },
   },
 
-  COIN: 'strax',
+  COIN: 'crs',
   INSIGHT_REQUEST_POOL_SIZE: 10,
   INSIGHT_TIMEOUT: 30000,
 
@@ -240,7 +268,8 @@ module.exports = {
     eth: 1000000000000, // 50 Gwei,
     xrp: 1000000000000,
     doge: 100000000 * 10,
-    strax: 10000 * 1000
+    strax: 10000 * 1000,
+    crs: 10000 * 1000
   },
 
   MIN_TX_FEE: {
@@ -249,7 +278,8 @@ module.exports = {
     eth: 0,
     xrp: 0,
     doge: 0,
-    strax: 0
+    strax: 0,
+    crs: 0
   },
 
   MAX_TX_FEE: {
@@ -258,7 +288,8 @@ module.exports = {
     eth: 1 * 1e18, // 1 eth
     xrp: 1 * 1e6, // 1 xrp
     doge: 10 * 1e8,
-    strax: 0.5 * 1e8
+    strax: 0.5 * 1e8,
+    crs: 0.5 * 1e8
   },
 
   // ETH

@@ -207,6 +207,30 @@ addNetwork({
 var testnet = get('testnet');
 
 addNetwork({
+  name: 'cirrusmain',
+  alias: 'cirrus',
+  prefix: 'cirrusmain',
+  pubkeyhash: 0x28,
+  privatekey: 0x239,
+  scripthash: 0x88,
+  bech32prefix: 'tb',
+  xpubkey: 0x043587cf,
+  xprivkey: 0x04358394,
+  networkMagic: 0x522357AC, //0x58727453,
+  port: 16179,
+  dnsSeeds: [
+    'cirrusmain1.stratisnetwork.com',
+    'cirrusmain1.stratisnetwork.com'
+  ]
+});
+
+/**
+ * @instance
+ * @member Networks#cirrusmain
+ */
+ var cirrusmain = get('cirrusmain');
+
+addNetwork({
   name: 'regtest',
   alias: 'dev',
   pubkeyhash: 0x6f,
@@ -257,6 +281,7 @@ module.exports = {
   mainnet: livenet,
   testnet: testnet,
   regtest: regtest,
+  cirrusmain: cirrusmain,
   get: get,
   enableRegtest: enableRegtest,
   disableRegtest: disableRegtest

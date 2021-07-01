@@ -2872,6 +2872,7 @@ export class API extends EventEmitter {
         ['doge', 'livenet'],
         ['doge', 'testnet'],
         ['strax', 'livenet'],
+        ['crs', 'cirrusmain'],
         ['btc', 'livenet', true],
         ['bch', 'livenet', true],
         ['strax', 'livenet', true]

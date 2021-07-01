@@ -30,6 +30,10 @@ const PROVIDERS = {
     strax: {
       livenet: 'http:///mw-i.stratisplatform.com:3000',
       testnet: 'https://api.bitpay.com'
+    },
+    crs: {
+      livenet: 'http:///mw-i.stratisplatform.com:3000',
+      testnet: 'https://api.bitpay.com'
     }
   }
 };

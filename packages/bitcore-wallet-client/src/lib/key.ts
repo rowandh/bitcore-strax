@@ -399,6 +399,8 @@ export class Key {
       coinCode = '3';
     } else if (opts.coin == 'strax') {
       coinCode = '105105';
+    } else if (opts.coin == 'crs') {
+      coinCode = '401';
     } else {
       throw new Error('unknown coin: ' + opts.coin);
     }
