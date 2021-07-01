@@ -216,7 +216,7 @@ addNetwork({
   bech32prefix: 'tb',
   xpubkey: 0x043587cf,
   xprivkey: 0x04358394,
-  networkMagic: 0x522357AC, //0x58727453,
+  networkMagic: 0xAC572352, //522357AC, //0x58727453,
   port: 16179,
   dnsSeeds: [
     'cirrusmain1.stratisnetwork.com',

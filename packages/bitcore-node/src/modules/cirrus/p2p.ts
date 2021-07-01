@@ -41,7 +41,7 @@ export class CirrusP2PWorker extends BaseP2PWorker<IBtcBlock> {
     };
     this.messages = new this.bitcoreP2p.Messages({
       network: this.bitcoreLib.Networks.get(this.network),
-      protocolVersion: 70012
+      protocolVersion: 80000
     });
     this.pool = new this.bitcoreP2p.Pool({
       addrs: this.chainConfig.trustedPeers.map(peer => {
