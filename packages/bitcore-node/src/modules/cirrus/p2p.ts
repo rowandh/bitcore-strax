@@ -42,7 +42,7 @@ export class CirrusP2PWorker extends BaseP2PWorker<IBtcBlock> {
     };
     this.messages = new this.bitcoreP2p.Messages({
       network: this.bitcoreLib.Networks.get(this.network),
-      protocolVersion: 80000,
+      protocolVersion: 80000
     });
     this.messages.add('poahdr', 'PoaHdr', PoahdrMessage);
     this.pool = new this.bitcoreP2p.Pool({
@@ -144,6 +144,16 @@ export class CirrusP2PWorker extends BaseP2PWorker<IBtcBlock> {
 
     this.pool.on('peerheaders', (peer, message) => {
       logger.debug('peerheaders message received', {
+        peer: `${peer.host}:${peer.port}`,
+        chain: this.chain,
+        network: this.network,
+        count: message.headers.length
+      });
+      this.events.emit('headers', message.headers);
+    });
+
+    this.pool.on('peerpoahdr', (peer, message) => {
+      logger.debug('peerpoahdr message received', {
         peer: `${peer.host}:${peer.port}`,
         chain: this.chain,
         network: this.network,
