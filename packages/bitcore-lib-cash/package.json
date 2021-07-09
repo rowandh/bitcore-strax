@@ -35,7 +35,7 @@
     "request": "browser-request"
   },
   "dependencies": {
-    "bitcore-lib": "file:../bitcore-lib",
+    "bitcore-lib": "^8.25.7",
     "bn.js": "=4.11.8",
     "bs58": "^4.0.1",
     "buffer-compare": "=1.1.1",
