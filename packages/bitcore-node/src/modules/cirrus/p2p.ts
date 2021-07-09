@@ -9,6 +9,7 @@ import { BaseP2PWorker } from '../../services/p2p';
 import { SpentHeightIndicators } from '../../types/Coin';
 import { BitcoinBlockType, BitcoinHeaderObj, BitcoinTransaction } from '../../types/namespaces/Bitcoin';
 import { wait } from '../../utils/wait';
+import PoahdrMessage from './poahdr';
 
 export class CirrusP2PWorker extends BaseP2PWorker<IBtcBlock> {
   protected bitcoreLib: any;
@@ -41,8 +42,9 @@ export class CirrusP2PWorker extends BaseP2PWorker<IBtcBlock> {
     };
     this.messages = new this.bitcoreP2p.Messages({
       network: this.bitcoreLib.Networks.get(this.network),
-      protocolVersion: 80000
+      protocolVersion: 80000,
     });
+    this.messages.add('poahdr', 'PoaHdr', PoahdrMessage);
     this.pool = new this.bitcoreP2p.Pool({
       addrs: this.chainConfig.trustedPeers.map(peer => {
         return {
@@ -188,6 +190,10 @@ export class CirrusP2PWorker extends BaseP2PWorker<IBtcBlock> {
     let received = false;
     return new Promise<BitcoinHeaderObj[]>(async resolve => {
       this.events.once('headers', headers => {
+        received = true;
+        resolve(headers);
+      });
+      this.events.once('poahdr', headers => {
         received = true;
         resolve(headers);
       });
