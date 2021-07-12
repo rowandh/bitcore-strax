@@ -23,7 +23,7 @@ var $ = bitcore.util.preconditions;
 function PoahdrMessage(arg, options) {
   Message.call(this, options);
   this.BlockHeader = options.BlockHeader;
-  this.command = 'poahdr';
+  this.command = 'headers';
   $.checkArgument(
     _.isUndefined(arg) || (Array.isArray(arg) && arg[0] instanceof this.BlockHeader),
     'First argument is expected to be an array of BlockHeader instances'
