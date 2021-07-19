@@ -197,6 +197,23 @@ CirrusBlockHeader.prototype.toBuffer = function toBuffer() {
 };
 
 /**
+ * @returns {Buffer} - A Buffer of the BlockHeader containing only the data used for hashing.
+ */
+CirrusBlockHeader.prototype.toHashingBuffer = function toHashingBuffer() {
+  var bw = new BufferWriter();
+  bw.writeInt32LE(this.version);
+  bw.write(this.prevHash);
+  bw.write(this.merkleRoot);
+  bw.writeUInt32LE(this.time);
+  bw.writeUInt32LE(this.bits);
+  bw.writeUInt32LE(this.nonce);
+  bw.write(this.hashStateRoot);
+  bw.write(this.receiptRoot);
+  bw.write(this.logsBloom);
+  return bw.concat();
+}
+
+/**
  * @returns {string} - A hex encoded string of the BlockHeader
  */
 CirrusBlockHeader.prototype.toString = function toString() {
@@ -217,6 +234,11 @@ CirrusBlockHeader.prototype.toBufferWriter = function toBufferWriter(bw) {
   bw.writeUInt32LE(this.time);
   bw.writeUInt32LE(this.bits);
   bw.writeUInt32LE(this.nonce);
+  bw.writeVarintNum(this.signature.length)
+  bw.write(this.signature);
+  bw.write(this.hashStateRoot);
+  bw.write(this.receiptRoot);
+  bw.write(this.logsBloom);
   return bw;
 };
 
@@ -255,7 +277,7 @@ CirrusBlockHeader.prototype.getDifficulty = function getDifficulty() {
  * @returns {Buffer} - The little endian hash buffer of the header
  */
 CirrusBlockHeader.prototype._getHash = function hash() {
-  var buf = this.toBuffer();
+  var buf = this.toHashingBuffer();
   return Hash.sha256sha256(buf);
 };
 
