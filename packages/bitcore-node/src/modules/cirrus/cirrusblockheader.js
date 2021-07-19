@@ -18,14 +18,15 @@ var GENESIS_BITS = 0x1d00ffff;
  * the properties of the BlockHeader
  *
  * @param {*} - A Buffer, JSON string, or Object
- * @returns {BlockHeader} - An instance of block header
+ * @returns {CirrusBlockHeader} - An instance of block header
  * @constructor
  */
-var BlockHeader = function BlockHeader(arg) {
-  if (!(this instanceof BlockHeader)) {
-    return new BlockHeader(arg);
+var CirrusBlockHeader = function CirrusBlockHeader(arg) {
+  if (!(this instanceof CirrusBlockHeader)) {
+    return new CirrusBlockHeader(arg);
   }
-  var info = BlockHeader._from(arg);
+
+  var info = CirrusBlockHeader._from(arg);
   this.version = info.version;
   this.prevHash = info.prevHash;
   this.merkleRoot = info.merkleRoot;
@@ -50,12 +51,12 @@ var BlockHeader = function BlockHeader(arg) {
  * @throws {TypeError} - If the argument was not recognized
  * @private
  */
-BlockHeader._from = function _from(arg) {
+CirrusBlockHeader._from = function _from(arg) {
   var info = {};
   if (BufferUtil.isBuffer(arg)) {
-    info = BlockHeader._fromBufferReader(BufferReader(arg));
+    info = CirrusBlockHeader._fromBufferReader(BufferReader(arg));
   } else if (_.isObject(arg)) {
-    info = BlockHeader._fromObject(arg);
+    info = CirrusBlockHeader._fromObject(arg);
   } else {
     throw new TypeError('Unrecognized argument for BlockHeader');
   }
@@ -67,7 +68,7 @@ BlockHeader._from = function _from(arg) {
  * @returns {Object} - An object representing block header data
  * @private
  */
-BlockHeader._fromObject = function _fromObject(data) {
+CirrusBlockHeader._fromObject = function _fromObject(data) {
   $.checkArgument(data, 'data is required');
   var prevHash = data.prevHash;
   var merkleRoot = data.merkleRoot;
@@ -92,43 +93,43 @@ BlockHeader._fromObject = function _fromObject(data) {
 
 /**
  * @param {Object} - A plain JavaScript object
- * @returns {BlockHeader} - An instance of block header
+ * @returns {CirrusBlockHeader} - An instance of block header
  */
-BlockHeader.fromObject = function fromObject(obj) {
-  var info = BlockHeader._fromObject(obj);
-  return new BlockHeader(info);
+CirrusBlockHeader.fromObject = function fromObject(obj) {
+  var info = CirrusBlockHeader._fromObject(obj);
+  return new CirrusBlockHeader(info);
 };
 
 /**
  * @param {Binary} - Raw block binary data or buffer
- * @returns {BlockHeader} - An instance of block header
+ * @returns {CirrusBlockHeader} - An instance of block header
  */
-BlockHeader.fromRawBlock = function fromRawBlock(data) {
+CirrusBlockHeader.fromRawBlock = function fromRawBlock(data) {
   if (!BufferUtil.isBuffer(data)) {
     data = Buffer.from(data, 'binary');
   }
   var br = BufferReader(data);
-  br.pos = BlockHeader.Constants.START_OF_HEADER;
-  var info = BlockHeader._fromBufferReader(br);
-  return new BlockHeader(info);
+  br.pos = CirrusBlockHeader.Constants.START_OF_HEADER;
+  var info = CirrusBlockHeader._fromBufferReader(br);
+  return new CirrusBlockHeader(info);
 };
 
 /**
  * @param {Buffer} - A buffer of the block header
- * @returns {BlockHeader} - An instance of block header
+ * @returns {CirrusBlockHeader} - An instance of block header
  */
-BlockHeader.fromBuffer = function fromBuffer(buf) {
-  var info = BlockHeader._fromBufferReader(BufferReader(buf));
-  return new BlockHeader(info);
+CirrusBlockHeader.fromBuffer = function fromBuffer(buf) {
+  var info = CirrusBlockHeader._fromBufferReader(BufferReader(buf));
+  return new CirrusBlockHeader(info);
 };
 
 /**
  * @param {string} - A hex encoded buffer of the block header
- * @returns {BlockHeader} - An instance of block header
+ * @returns {CirrusBlockHeader} - An instance of block header
  */
-BlockHeader.fromString = function fromString(str) {
+CirrusBlockHeader.fromString = function fromString(str) {
   var buf = Buffer.from(str, 'hex');
-  return BlockHeader.fromBuffer(buf);
+  return CirrusBlockHeader.fromBuffer(buf);
 };
 
 /**
@@ -136,7 +137,34 @@ BlockHeader.fromString = function fromString(str) {
  * @returns {Object} - An object representing block header data
  * @private
  */
-BlockHeader._fromBufferReader = function _fromBufferReader(br, extraByte = true) {
+CirrusBlockHeader._fromBufferReader = function _fromBufferReader(br, extraByte = true) {
+
+    // The next item is a smartcontractpoablockheader, which is a poablockheader + some extra fields
+  /* 
+    version 536870912 4 bytes
+    hashprevblock 39 32 bytes
+    hashmerkleroot 71 32 bytes
+    time 75 4 bytes
+    bits 79 4 bytes
+    nonce 83 4 bytes
+    blocksignature 154 71 bytes (varstring)
+    hashstateroot 186 32 bytes
+    receiptroot 218 32 bytes
+    logsbloom 474 256 bytes
+  */
+
+      //   // var version = parser.readUInt32LE();
+  //   // var hash = parser.read(32);
+  //   // var hashMerkleRoot = parser.read(32);
+  //   // var time = parser.read(4);
+  //   // var bits = parser.read(4);
+  //   // var nonce = parser.read(4);
+  //   // Read remaining cirrus params.
+  //   var signatureLen = parser.readVarintNum();
+  //   var signature = parser.read(signatureLen);
+  //   var hashStateRoot = parser.read(32);
+  //   var receiptRoot = parser.read(32);
+  //   var logsBloom = parser.read(256);    
   var info = {};
   info.version = br.readInt32LE();
   info.prevHash = br.read(32);
@@ -144,24 +172,28 @@ BlockHeader._fromBufferReader = function _fromBufferReader(br, extraByte = true)
   info.time = br.readUInt32LE();
   info.bits = br.readUInt32LE();
   info.nonce = br.readUInt32LE();
-  if(extraByte)
-    info.txCount = br.read(1); // Stratis adds an additional counter to the end of a header.
+  info.signatureLen = br.readVarintNum();
+  info.signature = br.read(info.signatureLen);
+  info.hashStateRoot = br.read(32);
+  info.receiptRoot = br.read(32);
+  info.logsBloom = br.read(256);
+  
   return info;
 };
 
 /**
  * @param {BufferReader} - A BufferReader of the block header
- * @returns {BlockHeader} - An instance of block header
+ * @returns {CirrusBlockHeader} - An instance of block header
  */
-BlockHeader.fromBufferReader = function fromBufferReader(br, extraByte) {
-  var info = BlockHeader._fromBufferReader(br, extraByte);
-  return new BlockHeader(info);
+CirrusBlockHeader.fromBufferReader = function fromBufferReader(br, extraByte) {
+  var info = CirrusBlockHeader._fromBufferReader(br, extraByte);
+  return new CirrusBlockHeader(info);
 };
 
 /**
  * @returns {Object} - A plain object of the BlockHeader
  */
-BlockHeader.prototype.toObject = BlockHeader.prototype.toJSON = function toObject() {
+CirrusBlockHeader.prototype.toObject = CirrusBlockHeader.prototype.toJSON = function toObject() {
   return {
     hash: this.hash,
     version: this.version,
@@ -176,14 +208,14 @@ BlockHeader.prototype.toObject = BlockHeader.prototype.toJSON = function toObjec
 /**
  * @returns {Buffer} - A Buffer of the BlockHeader
  */
-BlockHeader.prototype.toBuffer = function toBuffer() {
+CirrusBlockHeader.prototype.toBuffer = function toBuffer() {
   return this.toBufferWriter().concat();
 };
 
 /**
  * @returns {string} - A hex encoded string of the BlockHeader
  */
-BlockHeader.prototype.toString = function toString() {
+CirrusBlockHeader.prototype.toString = function toString() {
   return this.toBuffer().toString('hex');
 };
 
@@ -191,7 +223,7 @@ BlockHeader.prototype.toString = function toString() {
  * @param {BufferWriter} - An existing instance BufferWriter
  * @returns {BufferWriter} - An instance of BufferWriter representation of the BlockHeader
  */
-BlockHeader.prototype.toBufferWriter = function toBufferWriter(bw) {
+CirrusBlockHeader.prototype.toBufferWriter = function toBufferWriter(bw) {
   if (!bw) {
     bw = new BufferWriter();
   }
@@ -209,7 +241,7 @@ BlockHeader.prototype.toBufferWriter = function toBufferWriter(bw) {
  * @param {Number} bits
  * @returns {BN} An instance of BN with the decoded difficulty bits
  */
-BlockHeader.prototype.getTargetDifficulty = function getTargetDifficulty(bits) {
+CirrusBlockHeader.prototype.getTargetDifficulty = function getTargetDifficulty(bits) {
   bits = bits || this.bits;
 
   var target = new BN(bits & 0xffffff);
@@ -224,7 +256,7 @@ BlockHeader.prototype.getTargetDifficulty = function getTargetDifficulty(bits) {
  * @link https://en.bitcoin.it/wiki/Difficulty
  * @return {Number}
  */
-BlockHeader.prototype.getDifficulty = function getDifficulty() {
+CirrusBlockHeader.prototype.getDifficulty = function getDifficulty() {
   var difficulty1TargetBN = this.getTargetDifficulty(GENESIS_BITS).mul(new BN(Math.pow(10, 8)));
   var currentTargetBN = this.getTargetDifficulty();
 
@@ -238,7 +270,7 @@ BlockHeader.prototype.getDifficulty = function getDifficulty() {
 /**
  * @returns {Buffer} - The little endian hash buffer of the header
  */
-BlockHeader.prototype._getHash = function hash() {
+CirrusBlockHeader.prototype._getHash = function hash() {
   var buf = this.toBuffer();
   return Hash.sha256sha256(buf);
 };
@@ -257,15 +289,15 @@ var idProperty = {
   },
   set: _.noop
 };
-Object.defineProperty(BlockHeader.prototype, 'id', idProperty);
-Object.defineProperty(BlockHeader.prototype, 'hash', idProperty);
+Object.defineProperty(CirrusBlockHeader.prototype, 'id', idProperty);
+Object.defineProperty(CirrusBlockHeader.prototype, 'hash', idProperty);
 
 /**
  * @returns {Boolean} - If timestamp is not too far in the future
  */
-BlockHeader.prototype.validTimestamp = function validTimestamp() {
+CirrusBlockHeader.prototype.validTimestamp = function validTimestamp() {
   var currentTime = Math.round(new Date().getTime() / 1000);
-  if (this.time > currentTime + BlockHeader.Constants.MAX_TIME_OFFSET) {
+  if (this.time > currentTime + CirrusBlockHeader.Constants.MAX_TIME_OFFSET) {
     return false;
   }
   return true;
@@ -274,7 +306,7 @@ BlockHeader.prototype.validTimestamp = function validTimestamp() {
 /**
  * @returns {Boolean} - If the proof-of-work hash satisfies the target difficulty
  */
-BlockHeader.prototype.validProofOfWork = function validProofOfWork() {
+CirrusBlockHeader.prototype.validProofOfWork = function validProofOfWork() {
   var pow = new BN(this.id, 'hex');
   var target = this.getTargetDifficulty();
 
@@ -287,14 +319,14 @@ BlockHeader.prototype.validProofOfWork = function validProofOfWork() {
 /**
  * @returns {string} - A string formatted for the console
  */
-BlockHeader.prototype.inspect = function inspect() {
+CirrusBlockHeader.prototype.inspect = function inspect() {
   return '<BlockHeader ' + this.id + '>';
 };
 
-BlockHeader.Constants = {
+CirrusBlockHeader.Constants = {
   START_OF_HEADER: 8, // Start buffer position in raw block data
   MAX_TIME_OFFSET: 2 * 60 * 60, // The max a timestamp can be in the future
   LARGEST_HASH: new BN('10000000000000000000000000000000000000000000000000000000000000000', 'hex')
 };
 
-module.exports = BlockHeader;
+module.exports = CirrusBlockHeader;
