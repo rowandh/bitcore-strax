@@ -34,6 +34,10 @@ var CirrusBlockHeader = function CirrusBlockHeader(arg) {
   this.timestamp = info.time;
   this.bits = info.bits;
   this.nonce = info.nonce;
+  this.signature = info.signature;
+  this.hashStateRoot = info.hashStateRoot;
+  this.receiptRoot = info.receiptRoot;
+  this.logsBloom = info.logsBloom;
 
   if (info.hash) {
     $.checkState(
@@ -86,7 +90,11 @@ CirrusBlockHeader._fromObject = function _fromObject(data) {
     time: data.time,
     timestamp: data.time,
     bits: data.bits,
-    nonce: data.nonce
+    nonce: data.nonce,
+    signature: data.signature,
+    hashStateRoot: data.hashStateRoot,
+    receiptRoot: data.receiptRoot,
+    logsBloom: data.logsBloom
   };
   return info;
 };
@@ -138,33 +146,6 @@ CirrusBlockHeader.fromString = function fromString(str) {
  * @private
  */
 CirrusBlockHeader._fromBufferReader = function _fromBufferReader(br, extraByte = true) {
-
-    // The next item is a smartcontractpoablockheader, which is a poablockheader + some extra fields
-  /* 
-    version 536870912 4 bytes
-    hashprevblock 39 32 bytes
-    hashmerkleroot 71 32 bytes
-    time 75 4 bytes
-    bits 79 4 bytes
-    nonce 83 4 bytes
-    blocksignature 154 71 bytes (varstring)
-    hashstateroot 186 32 bytes
-    receiptroot 218 32 bytes
-    logsbloom 474 256 bytes
-  */
-
-      //   // var version = parser.readUInt32LE();
-  //   // var hash = parser.read(32);
-  //   // var hashMerkleRoot = parser.read(32);
-  //   // var time = parser.read(4);
-  //   // var bits = parser.read(4);
-  //   // var nonce = parser.read(4);
-  //   // Read remaining cirrus params.
-  //   var signatureLen = parser.readVarintNum();
-  //   var signature = parser.read(signatureLen);
-  //   var hashStateRoot = parser.read(32);
-  //   var receiptRoot = parser.read(32);
-  //   var logsBloom = parser.read(256);    
   var info = {};
   info.version = br.readInt32LE();
   info.prevHash = br.read(32);
@@ -172,8 +153,7 @@ CirrusBlockHeader._fromBufferReader = function _fromBufferReader(br, extraByte =
   info.time = br.readUInt32LE();
   info.bits = br.readUInt32LE();
   info.nonce = br.readUInt32LE();
-  info.signatureLen = br.readVarintNum();
-  info.signature = br.read(info.signatureLen);
+  info.signature = br.readVarLengthBuffer();
   info.hashStateRoot = br.read(32);
   info.receiptRoot = br.read(32);
   info.logsBloom = br.read(256);
@@ -201,7 +181,11 @@ CirrusBlockHeader.prototype.toObject = CirrusBlockHeader.prototype.toJSON = func
     merkleRoot: BufferUtil.reverse(this.merkleRoot).toString('hex'),
     time: this.time,
     bits: this.bits,
-    nonce: this.nonce
+    nonce: this.nonce,
+    signature: this.signature,
+    hashStateRoot: this.hashStateRoot,
+    receiptRoot: this.receiptRoot,
+    logsBloom: this.logsBloom
   };
 };
 
