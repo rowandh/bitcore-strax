@@ -37,53 +37,24 @@ PoahdrMessage.prototype.setPayload = function(payload) {
   var parser = new BufferReader(payload);
   var count = parser.readVarintNum();
 
-  // The next item is a smartcontractpoablockheader, which is a poablockheader + some extra fields
-  /* 
-    version 536870912 4 bytes
-    hashprevblock 39 32 bytes
-    hashmerkleroot 71 32 bytes
-    time 75 4 bytes
-    bits 79 4 bytes
-    nonce 83 4 bytes
-    blocksignature 154 71 bytes (varstring)
-    hashstateroot 186 32 bytes
-    receiptroot 218 32 bytes
-    logsbloom 474 256 bytes
-  */
   this.headers = [];
   for (var i = 0; i < count; i++) {
-    var header = this.BlockHeader.fromBufferReader(parser, false);
-
-    // var version = parser.readUInt32LE();
-    // var hash = parser.read(32);
-    // var hashMerkleRoot = parser.read(32);
-    // var time = parser.read(4);
-    // var bits = parser.read(4);
-    // var nonce = parser.read(4);
-    // Read remaining cirrus params.
-    var signatureLen = parser.readVarintNum();
-    var signature = parser.read(signatureLen);
-    var hashStateRoot = parser.read(32);
-    var receiptRoot = parser.read(32);
-    var logsBloom = parser.read(256);    
-
+    var header = this.BlockHeader.fromBufferReader(parser);
     this.headers.push(header);
+    // var txn_count = parser.readUInt8();
+    // $.checkState(txn_count === 0, 'txn_count should always be 0');
   }
-
   utils.checkFinished(parser);
 };
 
 PoahdrMessage.prototype.getPayload = function() {
   var bw = new BufferWriter();
-  bw.writeUInt32LE(this.version);
-  bw.writeVarintNum(this.starts.length);
-  for (var i = 0; i < this.starts.length; i++) {
-    bw.write(this.starts[i]);
+  bw.writeVarintNum(this.headers.length);
+  for (var i = 0; i < this.headers.length; i++) {
+    var buffer = this.headers[i].toBuffer();
+    bw.write(buffer);
+    bw.writeUInt8(0);
   }
-  if (this.stop.length !== 32) {
-    throw new Error('Invalid hash length: ' + this.stop.length);
-  }
-  bw.write(this.stop);
   return bw.concat();
 };
 
