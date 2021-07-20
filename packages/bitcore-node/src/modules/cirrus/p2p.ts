@@ -9,8 +9,8 @@ import { BaseP2PWorker } from '../../services/p2p';
 import { SpentHeightIndicators } from '../../types/Coin';
 import { BitcoinBlockType, BitcoinHeaderObj, BitcoinTransaction } from '../../types/namespaces/Bitcoin';
 import { wait } from '../../utils/wait';
-import CirrusBlockHeader from './cirrusblockheader';
 import CirrusBlock from './cirrusblock';
+import CirrusBlockHeader from './cirrusblockheader';
 import PoahdrMessage from './poahdr';
 
 export class CirrusP2PWorker extends BaseP2PWorker<IBtcBlock> {

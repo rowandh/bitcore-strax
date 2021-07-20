@@ -15,6 +15,8 @@ var $ = bitcore.util.preconditions; // require('../util/preconditions');
 /**
  * Instantiate a Block from a Buffer, JSON object, or Object with
  * the properties of the Block
+ * 
+ * Cirrus block is the same as a regular block, but uses the Cirrus Block header.
  *
  * @param {*} - A Buffer, JSON string, or Object
  * @returns {CirrusBlock}
