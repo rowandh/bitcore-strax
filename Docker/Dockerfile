@@ -4,10 +4,6 @@ RUN apt-get update -y
 
 WORKDIR /bitcore
 
-#RUN git clone https://github.com/stratisproject/bitcore-strax
-#WORKDIR /bitcore/bitcore-strax/packages/bitcore-node
-#RUN git checkout cirrus
-
 # Add source
 COPY lerna.json ./
 COPY package*.json ./
@@ -67,9 +63,7 @@ ADD . .
 RUN npm run compile
 
 EXPOSE 3000
-COPY Docker/startup-script.sh startup-script.sh
 COPY Docker/bitcore.config.json bitcore.config.json
-#CMD ["./startup-script.sh"]
 ENV DB_HOST=172.22.144.1
 ENV DB_PORT=27017
 ENV BITCORE_CONFIG_PATH=/bitcore/bitcore.config.json
