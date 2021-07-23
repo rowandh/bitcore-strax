@@ -69,4 +69,8 @@ RUN npm run compile
 EXPOSE 3000
 COPY Docker/startup-script.sh startup-script.sh
 COPY Docker/bitcore.config.json bitcore.config.json
-CMD ["./startup-script.sh"]
+#CMD ["./startup-script.sh"]
+ENV DB_HOST=172.22.144.1
+ENV DB_PORT=27017
+ENV BITCORE_CONFIG_PATH=/bitcore/bitcore.config.json
+ENTRYPOINT ["npm", "run", "node"]
