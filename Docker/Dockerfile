@@ -64,7 +64,5 @@ RUN npm run compile
 
 EXPOSE 3000
 COPY Docker/bitcore.config.json bitcore.config.json
-ENV DB_HOST=172.22.144.1
-ENV DB_PORT=27017
 ENV BITCORE_CONFIG_PATH=/bitcore/bitcore.config.json
 ENTRYPOINT ["npm", "run", "node"]
