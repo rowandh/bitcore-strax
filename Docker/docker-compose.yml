@@ -3,8 +3,8 @@ services:
     database:
         image: mongo
         container_name: mongodb-bitcore
-        ports:
-        - 27018:27017 # Expose 27018 for access from host, otherwise remove
+        # ports:
+        # - 27018:27017 # Expose 27018 for access from host, otherwise remove
         # volumes:
         #   - ../data:/data/db
         command: mongod
@@ -15,12 +15,13 @@ services:
             context: ../
             dockerfile: Docker/Dockerfile
         container_name: bitcore-strax
+        image: bitcorestrax.azurecr.io/bitcore-strax
         links:
         - database
         ports:
-        - 4000:3000
-        volumes:
-        - ./config:/config
+        - 3000:3000
+        # volumes:
+        # - ./config:/config
         environment:
             - DB_HOST=database
             - DB_PORT=27017
