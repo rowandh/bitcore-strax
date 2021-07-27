@@ -63,6 +63,4 @@ ADD . .
 RUN npm run compile
 
 EXPOSE 3000
-COPY Docker/bitcore.config.json bitcore.config.json
-ENV BITCORE_CONFIG_PATH=/bitcore/bitcore.config.json
 ENTRYPOINT ["npm", "run", "node"]
