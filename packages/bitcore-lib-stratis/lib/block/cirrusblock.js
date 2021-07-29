@@ -2,14 +2,13 @@
 
 var _ = require('lodash');
 var BlockHeader = require('./cirrusblockheader');
-var bitcore = require('bitcore-lib');
 var BN = require('../crypto/bn');
 var BufferUtil = require('../util/buffer');
 var BufferReader = require('../encoding/bufferreader');
 var BufferWriter = require('../encoding/bufferwriter');
 var Hash = require('../crypto/hash');
 var JSUtil = require('../util/js');
-var Transaction = bitcore.Transaction;
+var Transaction = require('../transaction/transaction');
 var $ = require('../util/preconditions');
 
 /**
