@@ -29,7 +29,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/stratisproject/bitcore-strax/tree/master/packages/bitcore-lib"
+    "url": "https://github.com/stratisproject/bitcore-strax/tree/master/packages/bitcore-lib-stratis"
   },
   "browser": {
     "request": "browser-request"

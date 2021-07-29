@@ -44,8 +44,10 @@ stratiscore.errors = require('./lib/errors');
 // main bitcoin library
 stratiscore.Address = require('./lib/address');
 stratiscore.Block = require('./lib/block');
+stratiscore.CirrusBlock = require('./lib/block/cirrusblock');
 stratiscore.MerkleBlock = require('./lib/block/merkleblock');
 stratiscore.BlockHeader = require('./lib/block/blockheader');
+stratiscore.CirrusBlockHeader = require('./lib/block/cirrusblockheader');
 stratiscore.HDPrivateKey = require('./lib/hdprivatekey.js');
 stratiscore.HDPublicKey = require('./lib/hdpublickey.js');
 stratiscore.Message = require('./lib/message');

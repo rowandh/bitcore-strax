@@ -8,11 +8,11 @@ module.exports = {
     p2p: require('bitcore-p2p-cash')
   },
   STRAX: {
-    lib: require('bitcore-lib'),
+    lib: require('bitcore-lib-stratis'),
     p2p: require('bitcore-p2p')
   },
   CRS: {
-    lib: require('bitcore-lib'),
+    lib: require('bitcore-lib-stratis'),
     p2p: require('bitcore-p2p')
   }
 };

@@ -1,3 +1,4 @@
+import * as BitcoreLibStratis from 'bitcore-lib-stratis';
 import { EventEmitter } from 'events';
 import logger, { timestamp } from '../../logger';
 import { BitcoinBlock, BitcoinBlockStorage, IBtcBlock } from '../../models/block';
@@ -9,8 +10,6 @@ import { BaseP2PWorker } from '../../services/p2p';
 import { SpentHeightIndicators } from '../../types/Coin';
 import { BitcoinBlockType, BitcoinHeaderObj, BitcoinTransaction } from '../../types/namespaces/Bitcoin';
 import { wait } from '../../utils/wait';
-import CirrusBlock from './cirrusblock';
-import CirrusBlockHeader from './cirrusblockheader';
 import PoahdrMessage from './poahdr';
 
 export class CirrusP2PWorker extends BaseP2PWorker<IBtcBlock> {
@@ -42,13 +41,15 @@ export class CirrusP2PWorker extends BaseP2PWorker<IBtcBlock> {
       [this.bitcoreP2p.Inventory.TYPE.BLOCK]: 100,
       [this.bitcoreP2p.Inventory.TYPE.TX]: 100000
     };
+    // Faux-inheritance to support just a different block, block header, and poahdrmessage for cirrus without rewriting everything.
     this.messages = new this.bitcoreP2p.Messages({
       network: this.bitcoreLib.Networks.get(this.network),
       protocolVersion: 80000,
-      BlockHeader: CirrusBlockHeader,
-      Block: CirrusBlock
+      BlockHeader: BitcoreLibStratis.CirrusBlockHeader,
+      Block: BitcoreLibStratis.CirrusBlock
     });
     this.messages.add('poahdr', 'PoaHdr', PoahdrMessage);
+
     this.pool = new this.bitcoreP2p.Pool({
       addrs: this.chainConfig.trustedPeers.map(peer => {
         return {
