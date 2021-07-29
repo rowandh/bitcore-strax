@@ -1,15 +1,14 @@
 'use strict';
 
 var _ = require('lodash');
-var bitcore = require('bitcore-lib');
 
-var BN = bitcore.crypto.BN; //require('../crypto/bn');
-var BufferUtil = bitcore.util.buffer; //require('../util/buffer');
-var BufferReader = bitcore.encoding.BufferReader; // require('../encoding/bufferreader');
-var BufferWriter = bitcore.encoding.BufferWriter; // require('../encoding/bufferwriter');
-var Hash = bitcore.crypto.Hash; // require('../crypto/hash');
-var JSUtil = bitcore.util.JS; // require('../util/js');
-var $ = bitcore.util.preconditions; // require('../util/preconditions');
+var BN = require('../crypto/bn');
+var BufferUtil = require('../util/buffer');
+var BufferReader = require('../encoding/bufferreader');
+var BufferWriter =  require('../encoding/bufferwriter');
+var Hash = require('../crypto/hash');
+var JSUtil = require('../util/js');
+var $ = require('../util/preconditions');
 
 var GENESIS_BITS = 0x1d00ffff;
 
