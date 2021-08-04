@@ -62,7 +62,7 @@ RUN npm run bootstrap
 ADD . .
 RUN npm run compile
 
-EXPOSE 5000
+EXPOSE 3032
 WORKDIR /config
 COPY Docker/config/bitcore.config.json bitcore.config.json
 ENV BITCORE_CONFIG_PATH=/config/bitcore.config.json
