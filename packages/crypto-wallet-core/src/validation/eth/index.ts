@@ -1,5 +1,5 @@
-import { IValidation } from '..';
 import * as utils from 'web3-utils';
+import { IValidation } from '..';
 
 export class EthValidation implements IValidation {
   validateAddress(_network: string, address: string): boolean {

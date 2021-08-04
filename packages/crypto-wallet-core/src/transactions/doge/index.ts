@@ -1,5 +1,5 @@
-import { BTCTxProvider } from '../btc';
 import { BitcoreLibDoge } from 'bitcore-lib-doge';
+import { BTCTxProvider } from '../btc';
 
 export class DOGETxProvider extends BTCTxProvider {
   lib = BitcoreLibDoge;

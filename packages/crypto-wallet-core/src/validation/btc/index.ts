@@ -1,5 +1,5 @@
-import { IValidation } from '..';
 import { Bitcore } from 'bitcore-lib';
+import { IValidation } from '..';
 
 export class BtcValidation implements IValidation {
   validateAddress(network: string, address: string): boolean {

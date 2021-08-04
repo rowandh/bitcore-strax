@@ -18,7 +18,7 @@
     "skipLibCheck": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "node_modules/*", "node_modules/@walletconnect/browser-utils/dist/cjs/browser.d.ts"],
+  "exclude": ["node_modules", "node_modules/*"],
   "compileOnSave": false,
   "atom": {
     "rewriteTsconfig": false

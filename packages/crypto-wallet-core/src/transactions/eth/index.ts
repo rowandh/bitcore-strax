@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
-import { Key } from '../../derivation';
 import * as utils from 'web3-utils';
+import { Key } from '../../derivation';
 
 export class ETHTxProvider {
   create(params: {
@@ -17,7 +17,7 @@ export class ETHTxProvider {
     let { chainId } = params;
     chainId = chainId || this.getChainId(network);
     const txData = {
-      nonce: nonce,
+      nonce,
       gasLimit: utils.toHex(gasLimit),
       gasPrice: utils.toHex(gasPrice),
       to: address,
