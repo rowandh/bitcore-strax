@@ -1,8 +1,9 @@
 import * as _ from 'lodash';
 import { Key } from '../../derivation';
+import { BitcoreLib } from 'bitcore-lib';
 
 export class BTCTxProvider {
-  lib = require('bitcore-lib');
+  lib = BitcoreLib;
 
   selectCoins(
     recipients: Array<{ amount: number }>,

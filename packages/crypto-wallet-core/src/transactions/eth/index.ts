@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import { Key } from '../../derivation';
-const utils = require('web3-utils');
+import * as utils from 'web3-utils';
+
 export class ETHTxProvider {
   create(params: {
     recipients: Array<{ address: string; amount: string }>;
