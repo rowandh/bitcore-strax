@@ -1,0 +1,8 @@
+{
+  "name": "*USERVISIBLENAME*",
+  "app_id": "com.stratis.live",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
