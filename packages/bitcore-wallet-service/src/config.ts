@@ -1,7 +1,10 @@
+const dbHost = process.env.DB_HOST || 'localhost';
+const dbPort = process.env.DB_PORT || '27017';
+
 module.exports = {
   basePath: '/bws/api',
   disableLogs: false,
-  port: 80,
+  port: 3032,
 
   // Uncomment to make BWS a forking server
   // cluster: true,
@@ -9,7 +12,7 @@ module.exports = {
   // Uncomment to set the number or process (will use the nr of availalbe CPUs by default)
   // clusterInstances: 4,
 
-  https: true,
+  https: false,
   privateKeyFile: 'private.pem',
   certificateFile: 'cert.pem',
   chain: 'chain.pem',
@@ -22,15 +25,15 @@ module.exports = {
 
   storageOpts: {
     mongoDb: {
-      uri: 'mongodb://localhost:27017/bws',
+      uri: `mongodb://${dbHost}:${dbPort}/bws`,
       dbname: 'bws'
     }
   },
   messageBrokerOpts: {
     //  To use message broker server, uncomment this:
-    messageBrokerServer: {
-      url: 'http://localhost:3380'
-    }
+    // messageBrokerServer: {
+    //   url: 'http://localhost:3380'
+    // }
   },
   blockchainExplorerOpts: {
     btc: {
