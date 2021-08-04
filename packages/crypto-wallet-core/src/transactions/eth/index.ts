@@ -17,7 +17,7 @@ export class ETHTxProvider {
     let { chainId } = params;
     chainId = chainId || this.getChainId(network);
     const txData = {
-      nonce: utils.toHex(nonce),
+      nonce: nonce,
       gasLimit: utils.toHex(gasLimit),
       gasPrice: utils.toHex(gasPrice),
       to: address,
