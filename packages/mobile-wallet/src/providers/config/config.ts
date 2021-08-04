@@ -172,7 +172,7 @@ export class ConfigProvider {
 
       // Bitcore wallet service URL
       bws: {
-        url: 'http://localhost:3232/bws/api' // Uncomment and replace w/ http://localhost:3232/bws/api for testing
+        url: 'http://13.64.100.247:3032/bws/api' // Uncomment and replace w/ http://localhost:3232/bws/api for testing
       },
 
       adPubKey: {
