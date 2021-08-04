@@ -1,5 +1,5 @@
-import { BitcoreDoge } from 'bitcore-lib-doge';
 import { IValidation } from '..';
+import { BitcoreDoge } from 'bitcore-lib-doge';
 
 export class DogeValidation implements IValidation {
   validateAddress(network: string, address: string): boolean {

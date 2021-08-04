@@ -1,6 +1,6 @@
-import { BitcoreLib } from 'bitcore-lib';
 import * as _ from 'lodash';
 import { Key } from '../../derivation';
+import { BitcoreLib } from 'bitcore-lib';
 
 export class BTCTxProvider {
   lib = BitcoreLib;

@@ -1,5 +1,5 @@
-import { BitcoreLibCash } from 'bitcore-lib-cash';
 import { BTCTxProvider } from '../btc';
+import { BitcoreLibCash } from 'bitcore-lib-cash';
 
 export class BCHTxProvider extends BTCTxProvider {
   lib = BitcoreLibCash;

@@ -1,5 +1,5 @@
-import { BitcoreCash } from 'bitcore-lib-cash';
 import { IValidation } from '..';
+import { BitcoreCash } from 'bitcore-lib-cash';
 
 export class BchValidation implements IValidation {
   validateAddress(network: string, address: string): boolean {
