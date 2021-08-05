@@ -33,7 +33,8 @@ export const Constants = {
     'busd',
     'dai',
     'wbtc',
-    'strax'
+    'strax',
+    'crs'
   ],
   ERC20: ['usdc', 'pax', 'gusd', 'busd', 'dai', 'wbtc'],
   UTXO_COINS: ['btc', 'bch', 'doge', 'strax', 'crs'],
