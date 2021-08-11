@@ -43,6 +43,13 @@ services:
             - DB_HOST=database
             - DB_PORT=27017
         restart: always
+    
+    cirrus:
+        build:
+            context: ../
+            dockerfile: Docker/cirrus.Dockerfile
+        container_name: cirrus-chain
+        image: bitcorestrax.azurecr.io/cirrus-chain
 
 volumes:
     fileshare:
