@@ -3,12 +3,15 @@ services:
     database:
         image: mongo
         container_name: mongodb-bitcore
-        # ports:
-        # - 27018:27017 # Expose 27018 for access from host, otherwise remove
         volumes:
           - fileshare:/data/db
         command: mongod
         restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 1g
+                    cpus: '0.5'        
     
     bitcore-strax-node:
         build:
@@ -25,6 +28,11 @@ services:
             - DB_PORT=27017
             - BITCORE_CONFIG_PATH=/config/bitcore.config.json
         restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 4g
+                    cpus: '2'         
 
     bitcore-wallet-service:
         build:
