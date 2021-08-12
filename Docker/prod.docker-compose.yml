@@ -21,7 +21,7 @@ services:
         ports:
         - 3000:3000        
         environment:
-            - DB_HOST=database
+            - DB_HOST=localhost
             - DB_PORT=27017
             - BITCORE_CONFIG_PATH=/config/bitcore.config.json
         restart: always
@@ -38,7 +38,7 @@ services:
         ports:
         - 3032:3032
         environment:
-            - DB_HOST=database
+            - DB_HOST=localhost
             - DB_PORT=27017
         restart: always
 
