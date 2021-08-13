@@ -15,3 +15,10 @@ Use docker-compose in conjunction with docker context to deploy to azure contain
 Production - Azure file share in ACI containers
 We mount an Azure file share volume for mongodb persistence in the ACI containers
 Ref https://docs.docker.com/cloud/aci-integration/#using-azure-file-share-as-volumes-in-aci-containers
+
+Build docker container for cirrus/strax: `docker build -t bitcorestrax.azurecr.io/cirrus-chain . -f cirrus.Dockerfile`
+
+Deployment of docker compose on Azure container instances
+- Add a context to docker with `docker context add aci [NAME] --region=[AZUREREGION]`
+- Use the context with `docker context use [NAME]`
+- Deploy the compose file with `docker compose -f [COMPOSEFILENAME] up --project-name=[NAME]`
