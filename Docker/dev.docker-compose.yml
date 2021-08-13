@@ -29,7 +29,9 @@ services:
         environment:
             - DB_HOST=database
             - DB_PORT=27017
-            - BITCORE_CONFIG_PATH=/config/bitcore.config.json
+            - BITCORE_CONFIG_PATH=/config/bitcore.config.test.json
+        volumes:
+          - config:/config
         restart: always
         deploy:
             resources:
@@ -63,4 +65,9 @@ volumes:
         driver: azure_file
         driver_opts:
             share_name: bitcorestratisdb
-            storage_account_name: bitcorestratisdev
+            storage_account_name: bitcorestratis
+    config:
+        driver: azure_file
+        driver_opts:
+            share_name: configs
+            storage_account_name: bitcorestratis
