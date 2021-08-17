@@ -3,8 +3,6 @@ services:
     database:
         image: mongo
         container_name: mongodb-bitcore
-        # ports:
-        # - 27018:27017 # Expose 27018 for access from host, otherwise remove
         volumes:
           - fileshare:/data/db
         command: mongod
@@ -27,7 +25,7 @@ services:
         ports:
         - 3000:3000        
         environment:
-            - DB_HOST=database
+            - DB_HOST=localhost
             - DB_PORT=27017
             - BITCORE_CONFIG_PATH=/config/bitcore.config.test.json
         volumes:
@@ -51,7 +49,7 @@ services:
         ports:
         - 3032:3032
         environment:
-            - DB_HOST=database
+            - DB_HOST=localhost
             - DB_PORT=27017
         restart: always
         deploy:
